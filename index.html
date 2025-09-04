@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Vogue - AI Fashion Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Playfair+Display:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff4d8d;
+            --secondary: #4361ee;
+            --accent: #7b2cbf;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gradient: linear-gradient(135deg, #ff4d8d 0%, #7b2cbf 50%, #4361ee 100%);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #ede7f6 50%, #e3f2fd 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            width: 100%;
+            padding: 20px;
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .creator {
+            font-size: 0.9rem;
+            color: #777;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .app-description {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .app-description h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 16px;
+            padding: 20px;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .upload-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .upload-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .upload-text {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .file-input {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .file-input input[type="file"] {
+            display: none;
+        }
+
+        .file-button {
+            background: var(--gradient);
+            color: white;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(123, 44, 191, 0.3);
+        }
+
+        .file-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(123, 44, 191, 0.4);
+        }
+
+        .preview-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .preview-grid img {
+            width: 100%;
+            max-width: 180px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .preview-grid img:hover {
+            transform: scale(1.05);
+        }
+
+        .wardrobe-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .wardrobe-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+
+        .wardrobe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            justify-items: center;
+        }
+
+        .wardrobe-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .wardrobe-item:hover {
+            transform: translateY(-8px);
+        }
+
+        .wardrobe-item img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .wardrobe-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            color: white;
+            text-align: left;
+        }
+
+        .wardrobe-item-overlay h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .wardrobe-item-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .try-on-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .try-on-btn:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .feature {
+                max-width: 100%;
+            }
+            
+            .wardrobe-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            
+            .preview-grid img {
+                max-width: 150px;
+                height: 180px;
+            }
+        }
+
+        .instructions {
+            background: rgba(123, 44, 191, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .instructions h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo">Virtual Vogue</h1>
+            <p class="tagline">Your AI-powered virtual fitting room</p>
+            <p class="creator">by sharleez al zuha</p>
+        </header>
+
+        <div class="app-description">
+            <h2>Style at Your Fingertips</h2>
+            <p>Virtual Vogue lets you try on clothes virtually using augmented reality. Simply scan the QR code on your clothing tags or upload photos to create a 360° view of your outfits!</p>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-qrcode"></i>
+                <h3>QR Code Scanning</h3>
+                <p>Scan QR codes on clothing tags to instantly add items to your virtual wardrobe</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-tshirt"></i>
+                <h3>Virtual Try-On</h3>
+                <p>See how clothes look on you before buying or putting together outfits</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-magic"></i>
+                <h3>AI Style Assistant</h3>
+                <p>Get personalized recommendations based on your preferences and body type</p>
+            </div>
+        </div>
+
+        <section class="upload-section">
+            <h2>Create Your Virtual Wardrobe</h2>
+            <p class="upload-text">Upload four photos of each clothing item (front, back, and both sides) to generate a 360° view that you can try on virtually.</p>
+            
+            <div class="instructions">
+                <h3>How to get the best results:</h3>
+                <ol>
+                    <li>Lay your clothing item on a plain, well-lit surface</li>
+                    <li>Take clear photos from the front, back, left side, and right side</li>
+                    <li>Make sure the entire item is visible in each photo</li>
+                    <li>For best results, use a solid color background</li>
+                </ol>
+            </div>
+            
+            <div class="file-input">
+                <input type="file" id="file-upload" multiple accept="image/*">
+                <button class="file-button" onclick="document.getElementById('file-upload').click();">
+                    <i class="fas fa-cloud-upload-alt"></i> Choose Files
+                </button>
+            </div>
+            
+            <div class="preview-grid" id="preview"></div>
+        </section>
+
+        <section class="wardrobe-section">
+            <h2>Your Virtual Wardrobe</h2>
+            <div class="wardrobe-grid">
+                <div class="wardrobe-item">
+                    <img src="https://images.unsplash.com/photo-1525299374597-911581e1bdef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80" alt="Denim Jacket">
+                    <div class="wardrobe-item-overlay">
+                        <h3>Vintage Denim Jacket</h3>
+                        <p>Added: 2 days ago</p>
+                        <button class="try-on-btn">Try On</button>
+                    </div>
+                </div>
+                <div class="wardrobe-item">
+                    <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="Summer Dress">
+                    <div class="wardrobe-item-overlay">
+                        <h3>Floral Summer Dress</h3>
+                        <p>Added: 1 week ago</p>
+                        <button class="try-on-btn">Try On</button>
+                    </div>
+                </div>
+                <div class="wardrobe-item">
+                    <img src="https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="Leather Bag">
+                    <div class="wardrobe-item-overlay">
+                        <h3>Designer Leather Bag</h3>
+                        <p>Added: 3 days ago</p>
+                        <button class="try-on-btn">Try On</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Virtual Vogue &copy; 2023 | Created by sharleez al zuha</p>
+            <p>All rights reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('file-upload');
+        const preview = document.getElementById('preview');
+
+        fileInput.addEventListener('change', function () {
+            preview.innerHTML = '';
+            const files = Array.from(this.files);
+            
+            if (files.length > 4) {
+                alert('Please upload a maximum of 4 images for each clothing item.');
+                this.value = '';
+                return;
+            }
+            
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        // Try-on button functionality
+        document.querySelectorAll('.try-on-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                alert('Virtual try-on feature activated! This would open the AR camera in the full app.');
+            });
+        });
+    </script>
+</body>
+</html>
